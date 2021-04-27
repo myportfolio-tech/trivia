@@ -8,10 +8,12 @@ from .models import setup_db, Question, Category
 
 QUESTIONS_PER_PAGE = 10
 
-def create_app(test_config=None):
+def create_app(config_file='settings.py'):
   # create and configure the app
   app = Flask(__name__)
-  setup_db(app)
+  app.config.from_pyfile(config_file)
+    
+  db.init_app(app)
   
   '''
   @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
