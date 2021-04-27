@@ -1,0 +1,2 @@
+FLASK_APP=trivia
+FLASK_ENV=development
