@@ -4,7 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import random
 
-from .models import setup_db, Question, Category
+from .models import Question, Category
+from .extensions import db
+from .routes.questions import question
+
 
 QUESTIONS_PER_PAGE = 10
 
@@ -15,6 +18,7 @@ def create_app(config_file='settings.py'):
     
   db.init_app(app)
   
+  app.register_blueprint(question)
   '''
   @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
   '''
@@ -103,4 +107,8 @@ def create_app(config_file='settings.py'):
   
   return app
 
-    
+app = create_app()
+
+@app.route('/')
+def index():
+  return "Hello"
