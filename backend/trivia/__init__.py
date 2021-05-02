@@ -7,6 +7,7 @@ import random
 from .models import Question, Category
 from .extensions import db
 from .routes.questions import question
+from .routes.categories import category
 
 
 QUESTIONS_PER_PAGE = 10
@@ -19,6 +20,7 @@ def create_app(config_file='settings.py'):
   db.init_app(app)
   
   app.register_blueprint(question)
+  app.register_blueprint(category)
   '''
   @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
   '''
