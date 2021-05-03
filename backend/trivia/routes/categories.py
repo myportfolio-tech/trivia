@@ -12,6 +12,8 @@ def get_categories():
     start = (page-1) * 10
     end = start + 10
 
+    categories = Category.query.all()
+    
     categories_dict = {}
     for category in categories:
         categories_dict[category.id] = category.type

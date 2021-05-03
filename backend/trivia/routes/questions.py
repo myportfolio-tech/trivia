@@ -16,12 +16,16 @@ def get_questions():
     formatted_questions = [question.format() for question in questions]
     
     categories = Category.query.all()
-    formatted_categories = [category.format() for category in categories]
+    categories_dict = {}
+    for category in categories:
+        categories_dict[category.id] = category.type
+    
+
     
     return jsonify({
           'success': True,
           'questions': formatted_questions[start:end],
           'total_questions': len(formatted_questions),
-          'categories': formatted_categories,
+          'categories': categories_dict,
           'current_category': None
       })
