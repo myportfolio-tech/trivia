@@ -11,17 +11,11 @@ def get_categories():
     page = request.args.get('page', 1, type=int)
     start = (page-1) * 10
     end = start + 10
-    
-    questions = Question.query.all()
-    formatted_questions = [question.format() for question in questions]
-    
-    categories = Category.query.all()
-    formatted_categories = [category.format() for category in categories]
+
+    categories_dict = {}
+    for category in categories:
+        categories_dict[category.id] = category.type
     
     return jsonify({
-          'success': True,
-          'questions': formatted_questions[start:end],
-          'total_questions': len(formatted_questions),
-          'categories': formatted_categories,
-          'current_category': None
+          'categories': categories_dict
       })

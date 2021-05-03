@@ -17,6 +17,7 @@ six = "*"
 aniso8601 = "*"
 python-dotenv = "*"
 flask-sqlalchemy = "*"
+cors = "*"
 
 [dev-packages]
 

@@ -3,6 +3,7 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import random
+from flask_cors import CORS
 
 from .models import Question, Category
 from .extensions import db
@@ -19,8 +20,25 @@ def create_app(config_file='settings.py'):
     
   db.init_app(app)
   
+  CORS(app)
+  cors = CORS(app, resources={r"/*": {"origins": "*"}})
+
+  @app.after_request
+  def after_request(response):
+      '''
+      Sets access control.
+      '''
+      response.headers.add('Access-Control-Allow-Headers',
+                            'Content-Type,Authorization,true')
+      response.headers.add('Access-Control-Allow-Methods',
+                            'GET,PUT,POST,DELETE,OPTIONS')
+      response.headers.add('Access-Control-Allow-Origin', '*')
+      return response
+
   app.register_blueprint(question)
   app.register_blueprint(category)
+  
+  
   '''
   @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
   '''
