@@ -9,6 +9,7 @@ from .models import Question, Category
 from .extensions import db
 from .routes.questions import question
 from .routes.categories import category
+from .routes.search import search
 
 
 QUESTIONS_PER_PAGE = 10
@@ -25,9 +26,7 @@ def create_app(config_file='settings.py'):
 
   @app.after_request
   def after_request(response):
-      '''
-      Sets access control.
-      '''
+
       response.headers.add('Access-Control-Allow-Headers',
                             'Content-Type,Authorization,true')
       response.headers.add('Access-Control-Allow-Methods',
@@ -37,21 +36,9 @@ def create_app(config_file='settings.py'):
 
   app.register_blueprint(question)
   app.register_blueprint(category)
+  app.register_blueprint(search)
   
   
-  '''
-  @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
-  '''
-
-  '''
-  @TODO: Use the after_request decorator to set Access-Control-Allow
-  '''
-
-  '''
-  @TODO: 
-  Create an endpoint to handle GET requests 
-  for all available categories.
-  '''
 
 
   '''

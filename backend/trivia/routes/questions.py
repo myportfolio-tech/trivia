@@ -29,3 +29,32 @@ def get_questions():
           'categories': categories_dict,
           'current_category': None
       })
+
+
+@question.route('/questions', methods=['POST'])
+def add_questions():
+
+    data = request.get_json()
+    question = data.get('question')
+    answer = data.get('answer')
+    difficulty = data.get('difficulty')
+    category = data.get('category')
+
+    new_question = Question(question=question, answer=answer, category=category, difficulty=difficulty)
+    new_question.insert()
+
+    return jsonify ({
+        'success': True
+    })
+
+
+@question.route('/questions/<int:question_id>/delete', methods=['DELETE'])
+def search_questions(question_id):
+
+    question = Question.query.get_or_404(question_id)
+    question.delete()
+
+    return jsonify ({
+        'success': True
+    })
+
