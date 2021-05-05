@@ -1,8 +1,21 @@
 from flask import Blueprint, request, jsonify, abort
 from trivia.extensions import db 
+import random
 from trivia.models import Category, Question
+from sqlalchemy import func
 
 quizz = Blueprint('quizz', __name__)
+
+
+def pick_next_question(questions, previous_questions):
+
+    for q in questions:
+       if q.id not in previous_questions:
+           
+           return q
+
+    return False
+
 
 
 @quizz.route('/quizz', methods=['POST'])
@@ -13,57 +26,45 @@ def play_quizz():
     previous_questions = data.get('previous_questions', None)
     quiz_category = data.get('quiz_category')
 
-    print(previous_questions)
-    print(quiz_category)
+    print('PREVIOUS QUESTIONS:', previous_questions)
+    print('QUIZ CATEGORY:', quiz_category)
 
     if not quiz_category:
         abort(422)
 
-
-    return jsonify({
-        'question': 
-        {
-        'id': 1,
-        'question': 'This is a question',
-        'answer': 'This is an answer', 
-        'difficulty': 5,
-        'category': 4
-        }
-})
-
-    # try:
+    category = Category.query.filter_by(type=quiz_category.get('type')).first()
 
 
-    #     # specific quiz_category is not selected
-    #     if (quiz_category["type"]) == "click":
-    #         selected = Question.query.filter(Question.id.notin_(
-    #             previous_questions)).order_by(func.random()).limit(1).all()
+    if quiz_category.get('type') == "click":
+        questions = Question.query.order_by(func.random()).all()
+    else:
+        questions = Question.query.filter_by(category=category.id).order_by(func.random()).all()
 
-    #     else:
-    #         # quiz_category is specified
-    #         selected = Question.query.filter(
-    #             Question.category == quiz_category["id"]).filter(
-    #             Question.id.notin_(previous_questions)).order_by(
-    #                 func.random()).limit(1).all()
 
-    #     # if a question is returned - format it
-    #     if len(selected) != 0:
-    #         selected_question = [
-    #             question.format() for question in selected]
+    question = pick_next_question(questions, previous_questions)
+    if question:
 
-    #         # remove brackets from question
-    #         question = selected_question[0]
+        return jsonify({
+            'question': 
+            {
+            'id': question.id,
+            'question': question.question,
+            'answer': question.answer, 
+            'difficulty': question.difficulty,
+            'category': question.category
+            }
+    })
 
-    #         result = {
-    #             'success': True,
-    #             'question': question
-    #         }
-    #     else:
-    #         result = {
-    #             'success': True
-    #         }
-    #     return jsonify(result)
-
-    # except Exception as e:
-    #     print('\n'+'Error retrieving question: ', e)
-    #     abort(422)
+    else:
+        question = Question.query.order_by(func.random()).first()
+        
+        return jsonify({
+            'question': 
+            {
+            'id': question.id,
+            'question': question.question,
+            'answer': question.answer, 
+            'difficulty': question.difficulty,
+            'category': question.category
+            }
+    })

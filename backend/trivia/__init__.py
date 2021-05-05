@@ -10,6 +10,7 @@ from .extensions import db
 from .routes.questions import question
 from .routes.categories import category
 from .routes.search import search
+from .routes.quizzes import quizz
 
 
 QUESTIONS_PER_PAGE = 10
@@ -37,6 +38,7 @@ def create_app(config_file='settings.py'):
   app.register_blueprint(question)
   app.register_blueprint(category)
   app.register_blueprint(search)
+  app.register_blueprint(quizz)
   
   
 
