@@ -11,6 +11,7 @@ from .routes.questions import question
 from .routes.categories import category
 from .routes.search import search
 from .routes.quizzes import quizz
+from .routes.error_handlers import errors
 
 
 QUESTIONS_PER_PAGE = 10
