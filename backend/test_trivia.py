@@ -58,8 +58,31 @@ class TriviaTestCase(unittest.TestCase):
     def test_route_categories(self):
         
         res = self.client().get('/categories')
-        self.assertEqual(res.status_code, 200)
         data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        
+        ## Test the result is dictionary with a single key, 'categories'
+        self.assertTrue(data.get('categories'))
+        self.assertEqual(len(data), 1)
+
+        
+    def test_route_questions(self):
+        res = self.client().get('/questions')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        
+        ## Test response dictionary keys
+        self.assertTrue(data.get('categories'))
+        self.assertEqual(data.get('current_category'), None)
+        self.assertTrue(data.get('questions'))
+        self.assertTrue(data.get('success'))
+        self.assertTrue(data.get('total_questions'))
+
+        ## Test there is data in payload
+        self.assertNotEqual(data.get('total_questions'), 0)
+        self.assertNotEqual(len(data.get('questions')), 0)
+
+
 
 
 
