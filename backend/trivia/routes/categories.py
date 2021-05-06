@@ -4,6 +4,10 @@ from trivia.models import Category, Question
 
 category = Blueprint('category', __name__)
 
+## This Route is used for testing
+@category.route('/')
+def index():
+  return "Hello"
 
 @category.route('/categories', methods=['GET'])
 def get_categories():

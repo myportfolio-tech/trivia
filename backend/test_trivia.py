@@ -24,14 +24,16 @@ def setup_test_db(app, database_path):
 class TriviaTestCase(unittest.TestCase):
 
     ## This Test Sets up the test app, database, and tables
-    def test_setUp(self):
+    def setUp(self):
 
-        self.app = create_app(config_file='settings.py')
+        self.app = create_app()
+        self.app.testing = True
         self.client = self.app.test_client
         self.database_name = "trivia_test"
-        # postgresql://psqladmin:administrator@localhost:5432/trivia
         self.database_path = "postgresql://{}@{}/{}".format('psqladmin:administrator','localhost:5432', self.database_name)
         setup_test_db(self.app, self.database_path)
+
+        self.test_text = "test"
 
         # binds the app to the current context
         with self.app.app_context():
@@ -45,10 +47,21 @@ class TriviaTestCase(unittest.TestCase):
         """Executed after reach test"""
         pass
 
-    """
-    TODO
-    Write at least one test for each test for successful operation and for expected errors.
-    """
+    ### Test that the Home Route is up and returns "Hello" ###
+    def test_check_home_page_return(self):
+        
+        res = self.client().get('/')
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual('Hello', res.get_data(as_text=True))
+
+    ### Test that Categories Return ###
+    def test_route_categories(self):
+        
+        res = self.client().get('/categories')
+        self.assertEqual(res.status_code, 200)
+        data = json.loads(res.data)
+
+
 
 
 # Make the tests conveniently executable

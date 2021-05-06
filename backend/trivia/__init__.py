@@ -119,6 +119,3 @@ def create_app(config_file='settings.py'):
 
 app = create_app()
 
-@app.route('/')
-def index():
-  return "Hello"
