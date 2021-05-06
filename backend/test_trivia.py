@@ -84,7 +84,26 @@ class TriviaTestCase(unittest.TestCase):
 
 
 
+    def test_route_search_questions(self):
+        res = self.client().post('/questions/search', json={"searchTerm": "the"})
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
 
+        ## Test response dictionary
+        self.assertNotEqual(len(data), 0)
+        self.assertEqual(data.get('success'), True)
+        self.assertEqual(data.get('current_category'), None)
+        self.assertTrue(data.get('questions'))
+        self.assertNotEqual(data.get('total_questions'), 0)
+
+    
+### ERROR TESTING ###
+
+    def test_400_bad_request(self):
+
+        # send request with bad page data, load response
+        res = self.client().get('/categories/100/questions')
+        self.assertEqual(res.status_code, 400)
 
 
 # Make the tests conveniently executable

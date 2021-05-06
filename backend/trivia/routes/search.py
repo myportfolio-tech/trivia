@@ -13,7 +13,7 @@ def search_questions():
     start = (page-1) * 10
     end = start + 10
     
-    data = request.get_json()
+    data = request.get_json(force=True)
     search_term = data.get('searchTerm')
 
     print(search_term)
@@ -21,7 +21,7 @@ def search_questions():
     questions = Question.query.filter(Question.question.ilike(f'%{search_term}%')).all()
     formatted_questions = [question.format() for question in questions]
 
-    print(formatted_questions)
+
     
 
     
