@@ -106,6 +106,22 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 400)
 
 
+    def test_404_bad_request(self):
+
+        # send request with bad page data, load response
+        res = self.client().get('/categories/100/questions')
+        self.assertEqual(res.status_code, 400)
+
+
+    def test_404_search_not_found(self):
+        """Tests search questions failure 404"""
+
+        # send post request with search term that should fail
+        res = self.client().post('/questions/search', json={"searchTerm": "this_is_a_very_long_search_term_to_fail"})
+
+        # check response status code
+        self.assertEqual(res.status_code, 404)
+
 # Make the tests conveniently executable
 if __name__ == "__main__":
     unittest.main()

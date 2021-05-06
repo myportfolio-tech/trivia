@@ -16,9 +16,11 @@ def search_questions():
     data = request.get_json(force=True)
     search_term = data.get('searchTerm')
 
-    print(search_term)
-
     questions = Question.query.filter(Question.question.ilike(f'%{search_term}%')).all()
+
+    if len(questions) == 0:
+        abort(404)
+
     formatted_questions = [question.format() for question in questions]
 
 
