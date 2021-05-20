@@ -11,16 +11,27 @@ We use a postgresql database
 
 
 1. Ensure Node is installed. [Download Node](https://nodejs.org/en/download/).
-2. Install pipenv 
+2. Install [postgresql](https://www.postgresql.org/download/) if needed
+3. Install pipenv 
 
 ```console
 pip install pipenv
 ```
 
-### Getting Started
+Start your virtual environment with 
+
+```console
+pipenv shell
+```
+
+### Setting up the Front and Back Ends
 
 1. Set up the backend, including databases, from the instructions here: [`./backend/`](./backend/README.md)
-2. The API documentation is here: [`documentation`](./backend/Documentation.md)
-3. Set up the frontend following the instructions here: [`./frontend/`](./frontend/README.md)
+2. Set up the frontend following the instructions here: [`./frontend/`](./frontend/README.md)
+
+### API Documentation
+Once youur backend is compltely set up, including the database, use the 
+
+API [`documentation`](./backend/Documentation.md) and curl to test the API calls.
  
 
