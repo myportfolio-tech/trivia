@@ -102,15 +102,27 @@ class TriviaTestCase(unittest.TestCase):
     def test_400_bad_request(self):
 
         # send request with bad page data, load response
-        res = self.client().get('/categories/100/questions')
+        res = self.client().get('/categories/67/questions')
+        resdata = json.loads(res.data)
+
         self.assertEqual(res.status_code, 400)
+        self.assertEqual(resdata['error'], 400)
+        self.assertEqual(resdata['message'], "Bad Request")
+        self.assertEqual(resdata['success'], False)
 
 
     def test_404_bad_request(self):
 
         # send request with bad page data, load response
-        res = self.client().get('/categories/100/questions')
-        self.assertEqual(res.status_code, 400)
+        res = self.client().get('/categories/67')
+        resdata = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(resdata['error'], 404)
+        self.assertEqual(resdata['message'], "Not Found")
+        self.assertEqual(resdata['success'], False)
+
+
 
 
     def test_404_search_not_found(self):
@@ -118,9 +130,14 @@ class TriviaTestCase(unittest.TestCase):
 
         # send post request with search term that should fail
         res = self.client().post('/questions/search', json={"searchTerm": "this_is_a_very_long_search_term_to_fail"})
+        resdata = json.loads(res.data)
 
-        # check response status code
         self.assertEqual(res.status_code, 404)
+        self.assertEqual(resdata['error'], 404)
+        self.assertEqual(resdata['message'], "Not Found")
+        self.assertEqual(resdata['success'], False)
+        # check response status code
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
