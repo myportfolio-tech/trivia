@@ -1,7 +1,31 @@
 # Project TODO List
 
-RESTful principles are followed throughout the project, including appropriate naming of endpoints, use of HTTP methods GET, POST, and DELETE.
-Routes perform CRUD operations on the psql database
+### Write clear, concise and well documented code
+
+	• [ x ] Variable and function names are clear.
+
+	• [ x ] Endpoints are logically named.
+
+	• [ x ] Code is commented appropriately.
+
+	• [ x ] The README file includes detailed instructions for scripts to install any project dependencies, and to run the development server.
+
+### Write an informative README File
+
+	• [ x ] Instructions for how to install project dependencies and start the project server.
+
+	• [ x ] Detailed documentation of API endpoints and expected behavior, using the format taught in the course:
+		○ METHOD Url
+			Request parameters
+			Response body
+ 
+### RESTful principles are followed throughout the project
+
+	• [ x ] appropriate naming of endpoint.
+
+	• [ x ] use of HTTP methods GET, POST, and DELETE.
+
+	• [ x ] Routes perform CRUD operations on the psql database
 
 ## Backend TODO
 
@@ -19,13 +43,19 @@ Routes perform CRUD operations on the psql database
 
 	• [ x ] Create a POST endpoint to get questions based on a search term. It should return any questions for whom the search term is a substring of the question.
 
-	• [ x ] Create a POST endpoint to get questions to play the quiz. This endpoint should take category and previous question parameters and return a random questions within the given category, if provided, and that is not one of the previous questions.
+	• [ x ] Create a POST endpoint to get questions to play the quiz. This endpoint should take category and previous question 				parameters and return a random questions within the given category, if provided, and that is not one of the previous 			questions.
 
 
 ### Handle common errors
 
 	• [ x ] Project handles common errors using the @app.errorhandler decorator function to format an API friendly JSON error response
     • [ x ] Passes all provided tests related to error handling
+
+
+### Unittest Flask Application
+
+	• [ x ] Import and utilize unittest library to test each endpoint for expected success and error behavior. Each endpoint should 		have at one test for the expected behavior and tests for error handling if applicable.
+    • [ x ] Project includes tests to ensure CRUD operations are successfu
 
 
 
