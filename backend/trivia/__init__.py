@@ -40,6 +40,7 @@ def create_app(config_file='settings.py'):
   app.register_blueprint(category)
   app.register_blueprint(search)
   app.register_blueprint(quizz)
+  app.register_blueprint(errors)
   
   
 

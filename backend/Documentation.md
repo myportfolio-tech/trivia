@@ -190,8 +190,13 @@ Deletes questions with specific id. Returns success if questions exits, 404 if d
   "success": true
 }
 ```
+If error: 
 ```
-404 Not Found
+{
+  "error": 400,
+  "message": "Bad Request",
+  "success": false
+}
 ```
 ## Search
 
@@ -291,4 +296,27 @@ Pagination: if no page on request, returns page 1 (10 questions per page).
   "total_questions": 10
 }
 ```
+## Error Tests
+
+### &nbsp;&nbsp;&nbsp;&nbsp; *400 Test*
+&nbsp;&nbsp;&nbsp;&nbsp; `curl http://localhost:5000/categories/67/questions`
+
+```
+{
+  "error": 400,
+  "message": "Bad Request",
+  "success": false
+}
+```
+
+### &nbsp;&nbsp;&nbsp;&nbsp; *404 Test*
+&nbsp;&nbsp;&nbsp;&nbsp; `curl http://localhost:5000/categories/67`
+```
+{
+  "error": 404,
+  "message": "Not Found",
+  "success": false
+}
+```
+
 
