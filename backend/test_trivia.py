@@ -123,6 +123,26 @@ class TriviaTestCase(unittest.TestCase):
         self.assertIn(data['question']['id'], [9, 12])
         self.assertIn(data['question']['question'], ["What boxer's original name is Cassius Clay?", "Who invented Peanut Butter?"])
 
+    
+    def test_route_question_create(self):
+         
+        new_question= {
+            'question': 'Test question from test_trivia',
+            'answer': 'Answer to test question from test_trivia',
+            'difficulty': 2,
+           'category': '1'
+        }
+        
+        res = self.client().post('/questions', json=new_question)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+
+
+
+
+
 
     
 ### ERROR TESTING ###
