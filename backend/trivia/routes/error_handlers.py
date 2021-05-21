@@ -45,3 +45,14 @@ def error_500(error):
         "error": 500,
         "message": "Internal Server Error"
     }), 500
+
+
+
+@errors.app_errorhandler(422)
+def error_422(error):
+        
+    return jsonify({
+        "success": False,
+        "error": 422,
+        "message": "Unprocessable Entity"
+    }), 422
