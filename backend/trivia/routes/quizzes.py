@@ -38,7 +38,7 @@ def play_quizz():
         questions = Question.query.order_by(func.random()).all()
     else:
         questions = Question.query.filter_by(
-            category=category.id).order_by(
+            category=str(category.id)).order_by(
             func.random()).all()
 
     question = pick_next_question(questions, previous_questions)
