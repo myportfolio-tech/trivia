@@ -111,19 +111,17 @@ class TriviaTestCase(unittest.TestCase):
         
         res = self.client().post('/quizz', json=request_data)
         data = json.loads(res.data)
-        print (data)
+
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data.get('question'))
 
         ## Ensure route doesn't return questions already played
         self.assertNotEqual(data['question']['id'], 5)
         self.assertNotEqual(data['question']['id'], 23)
-
-
-        # self.assertEqual(data.get('current_category'), None)
-        # self.assertTrue(data.get('questions'))
-        # self.assertTrue(data.get('success'))
-        # self.assertTrue(data.get('total_questions'))
+        
+        ## Ensure questions are what's expected.
+        self.assertIn(data['question']['id'], [9, 12])
+        self.assertIn(data['question']['question'], ["What boxer's original name is Cassius Clay?", "Who invented Peanut Butter?"])
 
 
     
