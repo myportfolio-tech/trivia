@@ -97,6 +97,36 @@ class TriviaTestCase(unittest.TestCase):
         self.assertNotEqual(data.get('total_questions'), 0)
 
     
+    def test_route_play_quizz(self):
+        ## We are using category 4
+        ## There are 4 questions with category 4 with ids [5, 9, 12, 23] 
+         
+        request_data= {
+            'previous_questions':[5, 23],
+            'quiz_category': {
+                'id': 4,
+                'type': 'History'
+            }
+        }
+        
+        res = self.client().post('/quizz', json=request_data)
+        data = json.loads(res.data)
+        print (data)
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(data.get('question'))
+
+        ## Ensure route doesn't return questions already played
+        self.assertNotEqual(data['question']['id'], 5)
+        self.assertNotEqual(data['question']['id'], 23)
+
+
+        # self.assertEqual(data.get('current_category'), None)
+        # self.assertTrue(data.get('questions'))
+        # self.assertTrue(data.get('success'))
+        # self.assertTrue(data.get('total_questions'))
+
+
+    
 ### ERROR TESTING ###
 
     def test_400_bad_request(self):
