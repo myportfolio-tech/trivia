@@ -25,6 +25,7 @@ def play_quizz():
     previous_questions = data.get('previous_questions', None)
     quiz_category = data.get('quiz_category')
 
+    print(data)
     print('PREVIOUS QUESTIONS:', previous_questions)
     print('QUIZ CATEGORY:', quiz_category)
 
@@ -55,15 +56,8 @@ def play_quizz():
         })
 
     else:
-        question = Question.query.order_by(func.random()).first()
+        
 
         return jsonify({
-            'question':
-            {
-                'id': question.id,
-                'question': question.question,
-                'answer': question.answer,
-                'difficulty': question.difficulty,
-                'category': question.category
-            }
+            'question': None
         })
