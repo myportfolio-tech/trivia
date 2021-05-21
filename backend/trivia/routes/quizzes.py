@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, abort
-from trivia.extensions import db 
+from trivia.extensions import db
 import random
 from trivia.models import Category, Question
 from sqlalchemy import func
@@ -10,12 +10,11 @@ quizz = Blueprint('quizz', __name__)
 def pick_next_question(questions, previous_questions):
 
     for q in questions:
-       if q.id not in previous_questions:
-           
-           return q
+        if q.id not in previous_questions:
+
+            return q
 
     return False
-
 
 
 @quizz.route('/quizz', methods=['POST'])
@@ -34,37 +33,37 @@ def play_quizz():
 
     category = Category.query.filter_by(type=quiz_category.get('type')).first()
 
-
     if quiz_category.get('type') == "click":
         questions = Question.query.order_by(func.random()).all()
     else:
-        questions = Question.query.filter_by(category=category.id).order_by(func.random()).all()
-
+        questions = Question.query.filter_by(
+            category=category.id).order_by(
+            func.random()).all()
 
     question = pick_next_question(questions, previous_questions)
     if question:
 
         return jsonify({
-            'question': 
+            'question':
             {
-            'id': question.id,
-            'question': question.question,
-            'answer': question.answer, 
-            'difficulty': question.difficulty,
-            'category': question.category
+                'id': question.id,
+                'question': question.question,
+                'answer': question.answer,
+                'difficulty': question.difficulty,
+                'category': question.category
             }
-    })
+        })
 
     else:
         question = Question.query.order_by(func.random()).first()
-        
+
         return jsonify({
-            'question': 
+            'question':
             {
-            'id': question.id,
-            'question': question.question,
-            'answer': question.answer, 
-            'difficulty': question.difficulty,
-            'category': question.category
+                'id': question.id,
+                'question': question.question,
+                'answer': question.answer,
+                'difficulty': question.difficulty,
+                'category': question.category
             }
-    })
+        })
