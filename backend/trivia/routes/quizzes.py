@@ -56,7 +56,6 @@ def play_quizz():
         })
 
     else:
-        
 
         return jsonify({
             'question': None

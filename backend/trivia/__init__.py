@@ -16,88 +16,88 @@ from .routes.error_handlers import errors
 
 QUESTIONS_PER_PAGE = 10
 
+
 def create_app(config_file='settings.py'):
-  # create and configure the app
-  app = Flask(__name__)
-  app.config.from_pyfile(config_file)
-    
-  db.init_app(app)
-  
-  CORS(app)
-  cors = CORS(app, resources={r"/*": {"origins": "*"}})
+    # create and configure the app
+    app = Flask(__name__)
+    app.config.from_pyfile(config_file)
 
-  @app.after_request
-  def after_request(response):
+    db.init_app(app)
 
-      response.headers.add('Access-Control-Allow-Headers',
-                            'Content-Type,Authorization,true')
-      response.headers.add('Access-Control-Allow-Methods',
-                            'GET,PUT,POST,DELETE,OPTIONS')
-      response.headers.add('Access-Control-Allow-Origin', '*')
-      return response
+    CORS(app)
+    cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-  app.register_blueprint(question)
-  app.register_blueprint(category)
-  app.register_blueprint(search)
-  app.register_blueprint(quizz)
-  app.register_blueprint(errors)
+    @app.after_request
+    def after_request(response):
+
+        response.headers.add('Access-Control-Allow-Headers',
+                             'Content-Type,Authorization,true')
+        response.headers.add('Access-Control-Allow-Methods',
+                             'GET,PUT,POST,DELETE,OPTIONS')
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+
+    app.register_blueprint(question)
+    app.register_blueprint(category)
+    app.register_blueprint(search)
+    app.register_blueprint(quizz)
+    app.register_blueprint(errors)
 
 
+#      IMPORTANT      #
 
-####      IMPORTANT      ####
+# ALL TODOS are completed uder the backend/trivia/routes folder #
 
-### ALL TODOS are completed uder the backend/trivia/routes folder ### 
-
-### COMPLETED  ### 
-  '''
-  @TODO: 
+# COMPLETED  #
+    '''
+  @TODO:
   Create an endpoint to handle GET requests for questions '''
-  ### The endpoint is completed under routes/categories
-  
+    # The endpoint is completed under routes/categories
 
-### COMPLETED ###
-  '''
-  @TODO: 
+
+# COMPLETED #
+    '''
+  @TODO:
   Create an endpoint to DELETE question using a question ID.'''
-  ### The endpoint is completed under routes/questions
-  
+    # The endpoint is completed under routes/questions
 
-### COMPLETED ###
-  '''
-  @TODO: 
+
+# COMPLETED #
+    '''
+  @TODO:
   Create an endpoint to POST a new question'''
-  ###   ### The endpoint is completed under routes/questions
+    # The endpoint is completed under routes/questions
 
 
-### COMPLETED ### 
+# COMPLETED #
+    '''
+  @TODO:
+  Create a POST endpoint to get questions based on a search term.
   '''
-  @TODO: 
-  Create a POST endpoint to get questions based on a search term. 
-  '''
-  ### The endpoint is completed under routes/search
+    # The endpoint is completed under routes/search
 
 
-### COMPELETED ###
-  '''
-  @TODO: 
+# COMPELETED #
+    '''
+  @TODO:
   Create a GET endpoint to get questions based on category.'''
-  ### The endpoint is completed under routes/categories
+    # The endpoint is completed under routes/categories
 
 
-### COMPLETED ###
-  '''
-  @TODO: 
+# COMPLETED #
+    '''
+  @TODO:
   Create a POST endpoint to get questions to play the quiz. '''
-  ### The endpoint is completed under routes/quizzes
+    # The endpoint is completed under routes/quizzes
 
 
-### COMPLETED ###
-  '''
-  @TODO: 
+# COMPLETED #
+    '''
+  @TODO:
   Create error handlers for all expected errors '''
-  ### The endpoint is completed under routes/error_handlers
-  
-  return app
+    # The endpoint is completed under routes/error_handlers
+
+    return app
+
 
 app = create_app()
-
